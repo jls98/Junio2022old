@@ -1,0 +1,44 @@
+name: task4
+on: 
+  workflow_dispatch:
+  push:
+    branches: [ arreglosJunio ]
+jobs:
+  Assemble:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_LOGIN: ${{ github.actor }}
+      GITHUB_PACKAGES: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Clonando el repositorio y estableciendo el espacio de trabajo
+        uses: actions/checkout@v3
+      - name: Configurando java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '16'
+      - name: Construyendo el código
+        run: |       
+          chmod +x gradlew        
+          ./gradlew assemble
+      - run: echo: "jiashi"
+    Test:
+    needs: Assemble
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_LOGIN: ${{ github.actor }}
+      GITHUB_PACKAGES: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Probando el código
+        run: |
+          chmod +x gradlew 
+          ./gradlew test
+      - run: echo: "jiashi"
+
+assemble
+
+test
+
+message
