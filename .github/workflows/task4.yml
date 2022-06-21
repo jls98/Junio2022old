@@ -23,7 +23,7 @@ jobs:
           chmod +x gradlew        
           ./gradlew assemble
       - run: echo "jiashi"
-    Test:
+  Test:
     needs: Assemble
     runs-on: ubuntu-latest
     env:
