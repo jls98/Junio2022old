@@ -22,9 +22,13 @@ jobs:
         run: |       
           chmod +x gradlew        
           ./gradlew assemble
-      - run: echo: "jiashi"
-    Test:
+  Message1:
+    runs-on: ubuntu-latest
     needs: Assemble
+    steps:
+      - run: echo: "jiashi"
+  Test:
+    needs: Message1
     runs-on: ubuntu-latest
     env:
       GITHUB_LOGIN: ${{ github.actor }}
@@ -35,10 +39,8 @@ jobs:
         run: |
           chmod +x gradlew 
           ./gradlew test
+  Message2:
+    runs-on: ubuntu-latest
+    needs: Test
+    steps:
       - run: echo: "jiashi"
-
-assemble
-
-test
-
-message
